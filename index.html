@@ -3,15 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Branching Paths Website</title>
+  <title>The Crownless King</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Landing page with backstory and a single start link. -->
 </head>
 <body>
-  <main>
-    <h1>Branching Paths</h1>
-    <p>This project is a narrative website inspired by decision-based games such as Telltale’s The Walking Dead, Until Dawn, and Life is Strange.</p>
-    <p>The goal is to provide a simple, accessible prototype for building interactive storytelling with branching decisions, multiple endings, and replayable paths.</p>
-    <p>Users can navigate through the story by making choices at key moments, leading to different outcomes and endings based on their decisions.</p>
-      
-  </main>
+  <div class="page-shell">
+    <header>
+      <p class="scene-label">Prologue</p>
+      <h1>The Crownless King</h1>
+    </header>
+    <div class="scene-art">
+      <img src="start.png" alt="Scene illustration placeholder" />
+    </div>
+    <main>
+      <section class="scene-copy">
+        <p>Once, your kingdom knew peace beneath open skies under your just rule. Now black clouds gather as invaders flood the capital. Warriors fall, betrayal spreads, and the crown begins its descent into ruin.</p>
+        <p>Tonight, black skies roll over the capital as invaders tear through the gates. Storms drown out the bells. Swords answer prayers. Whispers of betrayal wind through ruined halls, and your crown now rests on a path of ruin.</p>
+      </section>
+      <nav class="choice-list">
+        <a href="start.html" class="choice safe">Enter Act I</a>
+      </nav>
+      <footer class="scene-footer">
+        <p>This page is a quiet prelude. Step forth when you are ready to test fate.</p>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
