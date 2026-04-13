@@ -6,6 +6,7 @@
   <title>The Crownless King — Hide</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Template: scene header, atmospheric copy, choice links, footer note -->
+  <script src="theme-toggle.js" defer></script>
 </head>
 <body>
   <div class="page-shell">
@@ -27,6 +28,18 @@
       <footer class="scene-footer">
         <p>Choices in Act I are heavy. One wrong breath means death.</p>
       </footer>
+      <div class="theme-switcher" role="group" aria-label="Color theme selector">
+        <span>Theme</span>
+        <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+      </div>
+      <nav class="story-navigator" aria-label="Story tools">
+        <a href="about.html">About</a>
+        <a href="index.html">Restart Story</a>
+        <a href="start.html">Restart Act</a>
+        <a href="credits.html">Credits</a>
+      </nav>
     </main>
   </div>
 </body>

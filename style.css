@@ -1,14 +1,44 @@
 /* Dark fantasy style for Act I of The Crownless King */
 :root {
   color-scheme: dark;
+  --bg-top: #141212;
   --bg: #09080a;
-  --panel: #121114;
+  --panel-a: rgba(18, 18, 18, 0.92);
+  --panel-b: rgba(10, 10, 11, 0.98);
   --text: #e4ded8;
   --muted: #9a968d;
   --border: #2b292b;
+  --choice-bg: rgba(24, 23, 25, 0.9);
+  --choice-hover: rgba(40, 36, 38, 0.95);
+  --art-a: rgba(20, 18, 20, 0.9);
+  --art-b: rgba(12, 11, 12, 0.98);
+  --toggle-bg: rgba(15, 14, 16, 0.86);
+  --toggle-pill-active: #ede8de;
+  --toggle-text-active: #121114;
   --accent-safe: #5d6659;
   --accent-risky: #6e2c2c;
   --accent-emotional: #5b403b;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg-top: #d7d3cc;
+  --bg: #f2ece3;
+  --panel-a: rgba(255, 252, 246, 0.95);
+  --panel-b: rgba(247, 241, 232, 0.97);
+  --text: #261f1d;
+  --muted: #6a625d;
+  --border: #c5b9ad;
+  --choice-bg: rgba(255, 251, 244, 0.95);
+  --choice-hover: rgba(246, 238, 228, 0.96);
+  --art-a: rgba(249, 243, 234, 0.92);
+  --art-b: rgba(239, 232, 220, 0.98);
+  --toggle-bg: rgba(246, 240, 230, 0.88);
+  --toggle-pill-active: #2f2521;
+  --toggle-text-active: #f3ece3;
+  --accent-safe: #4c6a54;
+  --accent-risky: #8d3a38;
+  --accent-emotional: #7c5a43;
 }
 
 * {
@@ -19,10 +49,11 @@ html, body {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle at top, #141212 0%, var(--bg) 55%);
+  background: radial-gradient(circle at top, var(--bg-top) 0%, var(--bg) 55%);
   color: var(--text);
   font-family: "Palatino Linotype", Georgia, "Times New Roman", serif;
   line-height: 1.8;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 body {
@@ -34,9 +65,10 @@ body {
 .page-shell {
   width: min(100%, 44rem);
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(18,18,18,0.92), rgba(10,10,11,0.98));
+  background: linear-gradient(180deg, var(--panel-a), var(--panel-b));
   padding: 2rem 2.5rem;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.55);
+  transition: background 0.35s ease, border-color 0.35s ease;
 }
 
 .scene-label {
@@ -80,13 +112,13 @@ p {
   font-weight: 600;
   color: var(--text);
   border: 1px solid var(--border);
-  background: rgba(24, 23, 25, 0.9);
+  background: var(--choice-bg);
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 .choice:hover,
 .choice:focus-visible {
-  background: rgba(40, 36, 38, 0.95);
+  background: var(--choice-hover);
   transform: translateY(-1px);
 }
 
@@ -108,7 +140,7 @@ p {
   display: grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  background: linear-gradient(180deg, rgba(20, 18, 20, 0.9), rgba(12, 11, 12, 0.98));
+  background: linear-gradient(180deg, var(--art-a), var(--art-b));
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
   overflow: hidden;
 }
@@ -128,6 +160,75 @@ p {
   font-size: 0.95rem;
 }
 
+.theme-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  margin-left: auto;
+  padding: 0.38rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--toggle-bg);
+  backdrop-filter: blur(4px);
+}
+
+.theme-switcher button {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 0.35rem 0.72rem;
+  transition: transform 0.2s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.theme-switcher button:hover,
+.theme-switcher button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.theme-switcher button.active {
+  background: var(--toggle-pill-active);
+  color: var(--toggle-text-active);
+}
+
+.theme-switcher span {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-right: 0.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.story-navigator {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.story-navigator a {
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.story-navigator a:hover,
+.story-navigator a:focus-visible {
+  background: var(--choice-hover);
+  transform: translateY(-1px);
+}
+
 footer a {
   color: var(--text);
   text-decoration: underline;
@@ -136,5 +237,9 @@ footer a {
 @media (max-width: 480px) {
   .page-shell {
     padding: 1.5rem 1.25rem;
+  }
+
+  .story-navigator {
+    justify-content: flex-start;
   }
 }

@@ -6,6 +6,7 @@
   <title>The Crownless King — Captured</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Template: scene header, atmospheric copy, choice links, footer note -->
+  <script src="theme-toggle.js" defer></script>
 </head>
 <body>
   <div class="page-shell">
@@ -21,11 +22,24 @@
         <p>You wake to cold stone and muffled footsteps. The crown is gone; the kingdom is lost to shadow.</p>
       </section>
       <nav class="choice-list">
-        <a href="start.html" class="choice safe">Begin Again</a>
+        <a href="act1_to_act2.html" class="choice safe">Continue to Act II</a>
+        <a href="start.html" class="choice emotional">Begin Act I Again</a>
       </nav>
       <footer class="scene-footer">
-        <p>The first act closes on capture and the ruin of the crown.</p>
+        <p>The first act closes in chains, but exile is still ahead.</p>
       </footer>
+      <div class="theme-switcher" role="group" aria-label="Color theme selector">
+        <span>Theme</span>
+        <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+      </div>
+      <nav class="story-navigator" aria-label="Story tools">
+        <a href="about.html">About</a>
+        <a href="index.html">Restart Story</a>
+        <a href="start.html">Restart Act</a>
+        <a href="credits.html">Credits</a>
+      </nav>
     </main>
   </div>
 </body>

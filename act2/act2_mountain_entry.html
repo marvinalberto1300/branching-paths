@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Act II - Mountain Pass</title>
+  <link rel="stylesheet" href="../style.css" />
+  <!-- Mountain approach: leaving the road is fatal. -->
+  <script src="../theme-toggle.js" defer></script>
+</head>
+<body class="act2">
+  <div class="page-shell">
+    <header>
+      <p class="scene-label">Act II - Mountain Path</p>
+      <h1>The Narrow Pass</h1>
+    </header>
+    <div class="scene-art">
+      <img src="act2-mountain-pass.svg" alt="Scene illustration placeholder" />
+    </div>
+    <main>
+      <section class="scene-copy">
+        <p>Cold wind tears at your cloak. The pass is thin as a blade above a dark valley.</p>
+      </section>
+      <nav class="choice-list">
+        <a href="act2_mountain_elya.html" class="choice safe">Follow the tracks</a>
+        <a href="act2_gameover_mountain_road.html" class="choice risky">Leave the road</a>
+      </nav>
+      <div class="theme-switcher" role="group" aria-label="Color theme selector">
+        <span>Theme</span>
+        <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+      </div>
+      <nav class="story-navigator" aria-label="Story tools">
+        <a href="../about.html">About</a>
+        <a href="../index.html">Restart Story</a>
+        <a href="act2_start.html">Restart Act</a>
+        <a href="../credits.html">Credits</a>
+      </nav>
+    </main>
+  </div>
+</body>
+</html>
+
