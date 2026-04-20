@@ -160,6 +160,38 @@ p {
   font-size: 0.95rem;
 }
 
+.loading-indicator {
+  margin: 0 0 1.35rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.82rem;
+}
+
+.loading-dots::after {
+  content: "";
+  display: inline-block;
+  width: 1.5em;
+  text-align: left;
+  animation: loading-dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes loading-dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75%,
+  100% {
+    content: "...";
+  }
+}
+
 .theme-switcher {
   display: inline-flex;
   align-items: center;
