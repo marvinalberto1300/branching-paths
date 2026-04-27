@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Act III - Game Over</title>
+  <link rel="stylesheet" href="../style.css" />
+  <!-- Unified Act III game-over page for all fatal outcomes. -->
+  <!-- Fragment target controls which restart link is shown: #easy or #hard. -->
+  <style>
+    .mode-panel {
+      display: none;
+    }
+
+    .mode-panel.default {
+      display: block;
+    }
+
+    #easy:target,
+    #hard:target {
+      display: block;
+    }
+
+    #easy:target ~ #fallback,
+    #hard:target ~ #fallback {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <p class="scene-label">Act III - Failure</p>
+      <h1>GAME OVER - YOU HAVE DIED</h1>
+    </header>
+    <main>
+      <section class="scene-copy">
+        <p>The throne room goes silent, and your claim is swallowed by iron and smoke.</p>
+      </section>
+
+      <section id="easy" class="mode-panel" aria-label="Easy mode restart">
+        <nav class="choice-list">
+          <a href="act3_start_easy.html" class="choice safe">Restart Act III (Easy Mode)</a>
+        </nav>
+      </section>
+
+      <section id="hard" class="mode-panel" aria-label="Hard mode restart">
+        <nav class="choice-list">
+          <a href="act3_start_hard.html" class="choice safe">Restart Act III (Hard Mode)</a>
+        </nav>
+      </section>
+
+      <section id="fallback" class="mode-panel default" aria-label="Fallback restart chooser">
+        <nav class="choice-list">
+          <a href="act3_start_easy.html" class="choice emotional">Restart Act III (Easy Mode)</a>
+          <a href="act3_start_hard.html" class="choice risky">Restart Act III (Hard Mode)</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
