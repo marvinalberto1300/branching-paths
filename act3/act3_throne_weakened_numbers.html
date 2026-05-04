@@ -19,9 +19,7 @@
         <p>The tyrant's guards arrive hungry, late, and disordered. Your sabotage has already opened the throne room.</p>
       </section>
       <nav class="choice-list">
-        <a href="act3_ending_crown_restored.html" class="choice safe">Challenge the tyrant honorably</a>
-        <a href="act3_ending_shared_rule.html" class="choice emotional">Turn the people against him</a>
-        <a href="act3_ending_ally_victory.html" class="choice risky">Let an ally strike the final blow</a>
+        <a id="to-final-battle" href="act3_throne_duel.html?difficulty=easy&bannersRallied=1" class="choice safe">Lock in companions and march to the throne</a>
       </nav>
       <div class="theme-switcher" role="group" aria-label="Color theme selector">
         <span>Theme</span>
@@ -37,5 +35,16 @@
       </nav>
     </main>
   </div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var difficulty = params.get('difficulty') || 'easy';
+      var duelParams = new URLSearchParams();
+      duelParams.set('difficulty', difficulty);
+      duelParams.set('bannersRallied', '1');
+      var link = document.getElementById('to-final-battle');
+      if (link) { link.href = 'act3_throne_duel.html?' + duelParams.toString(); }
+    })();
+  </script>
 </body>
 </html>

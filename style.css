@@ -275,3 +275,228 @@ footer a {
     justify-content: flex-start;
   }
 }
+
+/* ============================================================
+   THRONE DUEL — Boss fight mini-game (Act III)
+   ============================================================ */
+
+/* Boss HP bar */
+.duel-boss {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  background: var(--choice-bg);
+}
+
+.duel-boss-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.boss-phase {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  transition: color 0.4s ease;
+}
+
+.boss-phase.phase-2 { color: #b87a3a; }
+.boss-phase.phase-3 { color: #a03030; }
+
+.hp-bar-track {
+  height: 8px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+}
+
+.hp-bar-fill {
+  height: 100%;
+  background: var(--accent-risky);
+  border-radius: 2px;
+  transition: width 0.45s ease;
+}
+
+.hp-bar-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.duel-route-bonus {
+  margin: 0 0 1.5rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--accent-safe);
+  background: rgba(93, 102, 89, 0.14);
+  color: var(--text);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+:root[data-theme="light"] .duel-route-bonus {
+  background: rgba(76, 106, 84, 0.12);
+}
+
+.duel-route-bonus.banners-bonus {
+  border-color: var(--accent-emotional);
+  background: rgba(91, 64, 59, 0.16);
+}
+
+:root[data-theme="light"] .duel-route-bonus.banners-bonus {
+  background: rgba(124, 90, 67, 0.14);
+}
+
+/* Party cards */
+.party-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.party-card {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
+  background: var(--choice-bg);
+  font-size: 0.83rem;
+  transition: border-color 0.25s ease, background 0.25s ease, opacity 0.25s ease;
+}
+
+.party-card.active-char {
+  border-color: var(--accent-safe);
+  background: var(--choice-hover);
+}
+
+.party-card.status-dead {
+  opacity: 0.4;
+}
+
+.party-card.status-wounded {
+  border-color: var(--accent-emotional);
+}
+
+.party-card.status-fatal {
+  border-color: var(--accent-risky);
+}
+
+.party-card.betrayer {
+  border-color: #8b2020;
+  background: rgba(70, 15, 15, 0.28);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.4rem;
+}
+
+.card-avatar {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.card-title {
+  min-width: 0;
+}
+
+.card-name {
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.card-role {
+  font-size: 0.73rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.45rem;
+}
+
+.card-hearts {
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+}
+
+.heart.full  { color: #a03030; }
+.heart.empty { color: var(--border); }
+
+.card-status {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+}
+
+.party-card.status-healthy .card-status  { color: var(--accent-safe); }
+.party-card.status-wounded .card-status  { color: #b87a3a; }
+.party-card.status-fatal   .card-status  { color: var(--accent-risky); }
+.party-card.status-dead    .card-status  { color: var(--muted); }
+.party-card.betrayer       .card-status  { color: #c03030; }
+
+.card-extras {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+  line-height: 1.4;
+}
+
+/* Combat log */
+.duel-log {
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  max-height: 13rem;
+  overflow-y: auto;
+}
+
+.duel-log p {
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+/* Action panel */
+.duel-actions {
+  margin-bottom: 1.5rem;
+}
+
+.action-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 0 0.65rem;
+}
+
+#action-panel {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.duel-transition {
+  color: var(--muted);
+  font-style: italic;
+  text-align: center;
+  letter-spacing: 0.06em;
+  margin: 1rem 0;
+}
+
+@media (max-width: 480px) {
+  .party-cards {
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  }
+}
