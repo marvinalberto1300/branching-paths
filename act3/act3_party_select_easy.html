@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Act III - Party Selection (Easy Routes)</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../theme-toggle.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <p class="scene-label">Act III - Party Selection</p>
+      <h1>Choose Who Marches to the Throne</h1>
+    </header>
+    <main>
+      <section class="scene-copy">
+        <p>The war camp is quiet for a final moment. Lock in the companions who will enter the throne room with you.</p>
+      </section>
+      <section class="scene-art">
+        <img src="../images/character-select-screen.jpg" alt="Party selection scene illustration" />
+      </section>
+
+      <section class="party-select" data-available="" data-default="" data-difficulty="easy" data-armed-well="0" data-banners-rallied="0">
+        <h2>Select your party</h2>
+        <p>Only companions recruited on your current path can be selected.</p>
+        <div class="party-select-grid" data-party-grid></div>
+        <p class="party-select-summary" data-party-summary></p>
+        <nav class="choice-list">
+          <a href="act3_party_confirm.html?party=&difficulty=easy" class="choice safe" data-party-continue>Lock in companions and march to the throne</a>
+        </nav>
+      </section>
+
+      <div class="theme-switcher" role="group" aria-label="Color theme selector">
+        <span>Theme</span>
+        <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+      </div>
+
+      <nav class="story-navigator" aria-label="Story tools">
+        <a href="../index.html">Restart Story</a>
+        <a href="act3_start_easy.html">Restart Act</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var link = document.querySelector('[data-party-continue]');
+      var section = document.querySelector('.party-select');
+      if (!link || !section) return;
+
+      var party = params.get('party') || '';
+      var difficulty = params.get('difficulty') || 'easy';
+      var armedWell = params.get('armedWell') === '1' ? '1' : '0';
+      var bannersRallied = params.get('bannersRallied') === '1' ? '1' : '0';
+
+      section.dataset.available = party;
+      section.dataset.default = '';
+      section.dataset.difficulty = difficulty;
+      section.dataset.armedWell = armedWell;
+      section.dataset.bannersRallied = bannersRallied;
+
+      var outgoing = new URLSearchParams();
+      outgoing.set('party', party);
+      outgoing.set('difficulty', difficulty);
+      if (armedWell === '1') outgoing.set('armedWell', '1');
+      if (bannersRallied === '1') outgoing.set('bannersRallied', '1');
+      link.setAttribute('href', 'act3_party_confirm.html?' + outgoing.toString());
+    })();
+  </script>
+  <script src="party-select.js" defer></script>
+</body>
+</html>

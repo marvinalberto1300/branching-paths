@@ -16,19 +16,26 @@
     <main>
       <section class="scene-copy">
         <p>Elya checks the string on her bow while the trained few wait in grim silence.</p>
+      </section>      <section class="scene-art">
+        <img src="../images/character-select-screen.jpg" alt="Scene illustration placeholder" />
       </section>
       <section class="scene-copy">
         <p>Available companions: Elya (Archer).</p>
         <p>The force is still small, but this is the strongest hard-route formation you can field.</p>
       </section>
-      <nav class="choice-list">
-        <a href="act3_throne_duel.html?party=elya&armedWell=1&difficulty=hard" class="choice safe">Lock in companions and march to the throne</a>
-      </nav>
+      <section class="party-select" data-available="" data-default="" data-difficulty="" data-armed-well="" data-banners-rallied="">
+        <h2>Select your party</h2>
+        <p>Choose who marches with you to the throne room.</p>
+        <div class="party-select-grid" data-party-grid></div>
+        <p class="party-select-summary" data-party-summary></p>
+      <nav class="choice-list"><a href="act3_party_confirm.html?party=elya&armedWell=1&difficulty=hard" class="choice safe" data-party-continue>Lock in companions and march to the throne</a></nav>
+      </section>
       <nav class="story-navigator" aria-label="Story tools">
         <a href="../index.html">Restart Story</a>
         <a href="act3_start_hard.html">Restart Act</a>
       </nav>
     </main>
   </div>
+  <script src="party-select.js" defer></script>
 </body>
 </html>

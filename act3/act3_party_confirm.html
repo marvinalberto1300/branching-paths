@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Act III - Confirm Retainers</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../theme-toggle.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <p class="scene-label">Act III - Final Check</p>
+      <h1>Confirm Retainers</h1>
+    </header>
+    <main>
+      <section class="scene-copy">
+        <p>Do you want to proceed with the following retainers in the final battle?</p>
+      </section>
+
+      <section class="scene-copy" id="retainer-summary">
+        <p>Loading chosen retainers...</p>
+      </section>
+
+      <nav class="choice-list">
+        <a id="confirm-link" href="act3_throne_duel.html?party=&difficulty=hard" class="choice safe">Proceed to the final battle</a>
+        <a id="back-link" href="#" class="choice emotional">Adjust party selection</a>
+      </nav>
+
+      <div class="theme-switcher" role="group" aria-label="Color theme selector">
+        <span>Theme</span>
+        <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+        <button type="button" data-theme="light" aria-pressed="false">Light</button>
+        <button type="button" data-theme="auto" aria-pressed="false">Auto</button>
+      </div>
+
+      <nav class="story-navigator" aria-label="Story tools">
+        <a href="../index.html">Restart Story</a>
+        <a href="act3_start.html">Restart Act</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var partyRaw = params.get('party') || '';
+      var partyIds = partyRaw ? partyRaw.split(',').filter(Boolean) : [];
+      var difficulty = params.get('difficulty') || 'hard';
+      var armedWell = params.get('armedWell') === '1';
+      var bannersRallied = params.get('bannersRallied') === '1';
+
+      var names = {
+        brann: 'Brann',
+        elya: 'Elya',
+        harold: 'Harold',
+        maven: 'Maven'
+      };
+
+      var summary = document.getElementById('retainer-summary');
+      var confirmLink = document.getElementById('confirm-link');
+      var backLink = document.getElementById('back-link');
+
+      var nameList = partyIds.map(function (id) { return names[id] || id; });
+      var outgoing = new URLSearchParams();
+      outgoing.set('party', partyIds.join(','));
+      outgoing.set('difficulty', difficulty);
+      if (armedWell) outgoing.set('armedWell', '1');
+      if (bannersRallied) outgoing.set('bannersRallied', '1');
+
+      if (nameList.length === 0) {
+        summary.innerHTML = '<p>Retainers selected: none.</p><p>You will enter the final battle alone.</p>';
+      } else {
+        summary.innerHTML = '<p>Retainers selected: ' + nameList.join(', ') + '.</p>';
+      }
+
+      confirmLink.setAttribute('href', 'act3_throne_duel.html?' + outgoing.toString());
+
+      backLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'act3_start.html';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
