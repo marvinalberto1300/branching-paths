@@ -731,7 +731,8 @@
     var king = getChar('king');
     if (!king || king.hearts <= 0) { endGame('gameover'); return true; }
 
-    if (S.talkCount >= 10) {
+    // Once Maven betrays, the parley path is broken and combat must continue.
+    if (S.talkCount >= 10 && !S.mageBetrayed) {
       // Sad trial if any companion died during the parley
       var talkDeaths = S.party.filter(function (c) {
         return c.id !== 'king' && c.hearts <= 0;
