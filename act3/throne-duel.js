@@ -380,6 +380,8 @@
       case 'elya_aim':      elyaAim(c);                break;
       case 'elya_lookout':  elyaLookout(c, target);    break;
       case 'elya_talk':     doTalk(c);                 break;
+      // BETRAYER
+      case 'strike_betrayer': strikeBetrayer(c);       break;
     }
   }
 
@@ -521,6 +523,27 @@
     target.protected = true;
     c.skipTurns = 1;
     addLog('\uD83D\uDCD6 Maven casts a protective ward over ' + target.name + '.');
+  }
+
+  function strikeBetrayer(c) {
+    var maven = getChar('maven');
+    if (!maven || maven.hearts <= 0) return;
+    var crit = c.baseCrit + c.critBonus;
+    var dmg;
+    if (c.boosted) {
+      dmg = 2; c.boosted = false;
+      addLog('\u26A0 ' + c.name + ' turns on Maven with inspired fury \u2014 CRITICAL \u22122!');
+    } else if (roll100() <= crit) {
+      dmg = 2;
+      addLog('\u26A0 ' + c.name + ' strikes Maven \u2014 CRITICAL \u22122!');
+    } else {
+      dmg = 1;
+      addLog('\u26A0 ' + c.name + ' strikes Maven \u2014 hit \u22121.');
+    }
+    damageChar(maven, dmg);
+    if (maven.hearts <= 0) {
+      addLog('\uD83D\uDCD6 Maven falls. The forbidden tome goes silent.');
+    }
   }
 
   function mageBetrayal() {
@@ -938,45 +961,64 @@
     var living = livingParty().filter(function (p) { return p.id !== c.id; });
     var dead = deadParty().filter(function (p) { return p.id !== 'maven' || !S.mageBetrayed; });
     var talkLabel = 'Talk to the Usurper (' + S.talkCount + '/10)';
+    var actions;
 
     switch (c.id) {
       case 'king':
-        return [
+        actions = [
           { id: 'king_attack',  label: '\u2694 Sword \u2014 Strike (15% crit \u22122, else \u22121)',             style: 'risky' },
           { id: 'king_inspire', label: '\u2728 Inspire \u2014 Grant ally guaranteed crit next attack',           style: 'safe',     disabled: living.length === 0 },
           { id: 'king_rally',   label: '\uD83D\uDCE3 Rally \u2014 All party +5% crit chance (stacks)',           style: 'emotional' },
           { id: 'king_talk',    label: '\uD83D\uDCAC ' + talkLabel + ' (enrages Usurper toward King)',           style: 'emotional' }
         ];
+        break;
       case 'harold':
-        return [
+        actions = [
           { id: 'harold_attack',  label: '\uD83D\uDD31 Flail \u2014 Strike (10% crit \u22122, 85% \u22121, 5% miss)',      style: 'risky' },
           { id: 'harold_defend',  label: '\uD83D\uDEE1 Defend \u2014 Absorb 1 damage for a chosen ally',                   style: 'safe',     disabled: living.length === 0 },
           { id: 'harold_escort',  label: '\uD83E\uDD1D Escort \u2014 Chosen ally acts twice next round',                   style: 'emotional', disabled: living.length === 0 },
           { id: 'harold_talk',    label: '\uD83D\uDCAC ' + talkLabel + ' (50% chance Usurper skips attack)',               style: 'emotional' }
         ];
+        break;
       case 'brann':
-        return [
+        actions = [
           { id: 'brann_attack', label: '\uD83C\uDF3F Staff \u2014 Strike (5% crit \u22121, 70% \u22121, 25% miss)',        style: 'risky' },
           { id: 'brann_mend',   label: '\uD83C\uDF3F Mend \u2014 Heal ally +1 heart',                                      style: 'safe',     disabled: living.length === 0 },
           { id: 'brann_heal',   label: '\uD83C\uDF3F Heal \u2014 Skip next turn, ally +2 hearts',                          style: 'emotional', disabled: living.length === 0 },
           { id: 'brann_talk',   label: '\uD83D\uDCAC ' + talkLabel + ' (25% chance Usurper hesitates)',                    style: 'emotional' }
         ];
+        break;
       case 'maven':
-        return [
+        actions = [
           { id: 'maven_attack',  label: '\uD83D\uDCD6 Tome \u2014 5% mega \u22123, 10% crit \u22122, 65% \u22121, 20% miss',  style: 'risky' },
           { id: 'maven_revive',  label: '\uD83D\uDCD6 Revival \u2014 Revive a fallen ally (1 heart)',                         style: 'safe',     disabled: dead.length === 0 },
           { id: 'maven_protect', label: '\uD83D\uDCD6 Ward \u2014 Skip next turn, ally 10% to negate damage',                 style: 'emotional', disabled: living.length === 0 },
           { id: 'maven_talk',    label: '\uD83D\uDCAC ' + talkLabel + ' \u26A0 Maven: ' + S.mageTalkCount + '/3 before betrayal', style: S.mageTalkCount >= 2 ? 'risky' : 'emotional' }
         ];
+        break;
       case 'elya':
-        return [
+        actions = [
           { id: 'elya_attack',  label: '\uD83C\uDFF9 Bow \u2014 1% bullseye \u22123, 4% \u22122, 35% \u22121, 60% miss',  style: 'risky' },
           { id: 'elya_aim',     label: '\uD83C\uDFF9 Aim \u2014 Use action to guarantee max damage next shot',             style: 'safe' },
           { id: 'elya_lookout', label: '\uD83C\uDFF9 Lookout \u2014 Watch an ally; punish boss \u22121 if they\u2019re hit', style: 'emotional', disabled: living.length === 0 },
           { id: 'elya_talk',    label: '\uD83D\uDCAC ' + talkLabel + ' (enrages Usurper toward Elya)',                    style: 'emotional' }
         ];
+        break;
     }
-    return [];
+
+    if (!actions) return [];
+
+    // Once Maven betrays and is still alive, every non-Maven character can strike her.
+    var betrayerMaven = getChar('maven');
+    if (S.mageBetrayed && betrayerMaven && betrayerMaven.hearts > 0 && c.id !== 'maven') {
+      actions.push({
+        id: 'strike_betrayer',
+        label: '\u26A0 Strike Betrayer \u2014 Attack Maven (' + betrayerMaven.hearts + '\u2665 remaining)',
+        style: 'risky'
+      });
+    }
+
+    return actions;
   }
 
   // ----------------------------------------------------------
