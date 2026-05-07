@@ -19,7 +19,7 @@
         <p>The throne hall reeks of iron and rainwater. Your banners and the tyrant's deadlock under shattered glass.</p>
       </section>
       <nav class="choice-list">
-        <a id="to-final-battle" href="act3_throne_duel.html?difficulty=easy&bannersRallied=1" class="choice safe">Lock in companions and march to the throne</a>
+        <a id="to-final-battle" href="act3_party_select_easy.html?party=brann,elya,harold,maven&difficulty=easy&bannersRallied=1" class="choice safe">Lock in companions and march to the throne</a>
       </nav>
       <div class="theme-switcher" role="group" aria-label="Color theme selector">
         <span>Theme</span>
@@ -42,16 +42,18 @@
       var banners = params.get('bannersRallied') || '1';
       var party = params.get('party');
 
-      var duelParams = new URLSearchParams();
-      duelParams.set('difficulty', difficulty);
-      duelParams.set('bannersRallied', banners);
-      if (party !== null) {
-        duelParams.set('party', party);
-      }
-
       var link = document.getElementById('to-final-battle');
       if (link) {
-        link.href = 'act3_throne_duel.html?' + duelParams.toString();
+        if (difficulty === 'hard') {
+          link.href = banners === '1' ? 'act3_party_select_hard_solo_word.html' : 'act3_party_select_hard_solo.html';
+          return;
+        }
+
+        var selectParams = new URLSearchParams();
+        selectParams.set('difficulty', difficulty);
+        selectParams.set('bannersRallied', banners);
+        selectParams.set('party', party !== null && party !== '' ? party : 'brann,elya,harold,maven');
+        link.href = 'act3_party_select_easy.html?' + selectParams.toString();
       }
     })();
   </script>
