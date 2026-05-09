@@ -20,3 +20,7 @@ This tech stack keeps the project lightweight, portable, and maintainable while 
 ## How to visit
 
 You can visit this project's prototype by visting https://marvinalberto1300.github.io/branching-paths/
+
+## What changed from Project 01 to Project 02?
+
+Over the course of the development of "Crownless King" signifcant changes have happened since Project 01's deliverables. These include: adding a fully functional Act II and Act III with unique branching narratives that build upon previous acts. A final boss battle with selectable party members. Different endings to unlock for those who replay the story.
